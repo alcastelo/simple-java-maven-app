@@ -26,5 +26,13 @@ pipeline {
                 sh './jenkins/scripts/deliver.sh'
             }
         }
+          stage("build & SonarQube analysis") {
+              node {
+                  withSonarQubeEnv('My SonarQube Server') {
+                     sh 'mvn clean package sonar:sonar'
+                  }
+              }
+          }
+
     }
 }
